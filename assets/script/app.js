@@ -198,11 +198,7 @@ function showScore(){
   dvdialog.style.display = 'grid';
   let scoreHTML = '<h1>Congratulation!!</h1>';
   scoreHTML += '<h2>Here is your score:</h2>';
-  scoreHTML += `<p><span class="scoreCategory">Name: </span><span id="roundScoreName">${newScore.name}</span></p>`;
-  scoreHTML += `<p><span class="scoreCategory">Date: </span><span id="roundScoreDate">${newScore.date}</span></p>`;
-  scoreHTML += `<p><span class="scoreCategory">Hits: </span><span id="roundScoreHits">${newScore.hits}</span></p>`;
-  scoreHTML += `<p><span class="scoreCategory">Percentage: </span><span id="roundScorePercentage">${newScore.percentage}</span></p>`;
-  scoreHTML += `<p><span class="scoreCategory">Time Used: </span><span id="roundTimeUsed">${newScore.timeUsed} seconds</span></p>`;
+  scoreHTML += createRecord(newScore);
   scoreHTML += '<button id="ok">OK</button>';
   dvsubDialog.innerHTML = scoreHTML;
   const btnOK = select('#ok');
@@ -220,11 +216,7 @@ function showHistory(){
     let histories = '<h4>Histories:</h4>';
     for(let i = 0; i < scores.length; i++){
       const score = scores[i];
-      histories += `<p><span class="scoreCategory">Name: </span><span id="scoreName">${score.name}</span></p>`;
-      histories += `<p><span class="scoreCategory">Date: </span><span id="scoreDate">${score.date}</span></p>`;
-      histories += `<p><span class="scoreCategory">Hits: </span><span id="scoreHits">${score.hits}</span></p>`;
-      histories += `<p><span class="scoreCategory">Percentage: </span><span id="scorePercentage">${score.percentage}</span></p>`;
-      histories += `<p><span class="scoreCategory">Time Used: </span><span id="timeUsed"> ${score.timeUsed} seconds</span></p>`;
+      histories += createRecord(score);
       if(scores.length > 1 && i < scores.length - 1){
         histories += '<div class="spliter"></div>';
       }
@@ -237,4 +229,14 @@ function showHistory(){
 onEvent('click', scoreDiv, hideHistory)
 function hideHistory(){
   scoreDiv.style.display ='none';
+}
+
+function createRecord(score){
+  let html = '';
+  html += `<p><span class="scoreCategory">Name: </span><span>${score.name}</span></p>`;
+  html += `<p><span class="scoreCategory">Date: </span><span">${score.date}</span></p>`;
+  html += `<p><span class="scoreCategory">Hits: </span><span>${score.hits}</span></p>`;
+  html += `<p><span class="scoreCategory">Percentage: </span><span>${score.percentage}</span></p>`;
+  html += `<p><span class="scoreCategory">Time Used: </span><span> ${score.timeUsed} seconds</span></p>`;
+  return html;
 }
