@@ -1,0 +1,22 @@
+@charset "utf-8";
+* {
+    margin: 0;
+    padding: 0;
+    outline:none;
+    border-style: none;
+    vertical-align: baseline;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+/* 
+html,body {
+    height: 100%;
+} */
+
+/* body {
+    line-height: 1.5;
+    margin-inline: auto;
+    background-color: var(--app-background-color);
+    color: #e0dddd;
+    border-radius: 0;
+} */

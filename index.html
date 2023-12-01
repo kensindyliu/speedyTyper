@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Liu zhixin">
+        <meta name="description" content="Liu zhixin; web developer">
+        <meta name="keywords" content="web developer, front-end, html, css, javascript, react, sql">
+        <title>Speedy typer</title>
+
+        <!-- using icons from fontawesome -->
+        <script src="https://kit.fontawesome.com/3f60ee6457.js" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="./assets/style/index.css">
+        <link rel="stylesheet" href="./assets/style/reset.css">
+        <link rel="stylesheet" href="./assets/style/countdown.css">
+
+        <script src="./assets/script/app.js" defer></script>
+        <script src="./assets/script/score.js"></script>
+    </head>
+    <body>
+        <section role="countdown">
+            <div class="countdownDiv">
+                <div class="counter">
+                    <div class="nums">
+                        <span class="in">3</span>
+                        <span>2</span>
+                        <span>1</span>
+                    </div>
+                    <h4>Get Ready</h4>
+                </div>
+                <div class="final">
+                    <h1>GO</h1>
+                </div>
+            </div>
+            <audio id="keydown" src="./assets/audio/click.wav" hidden></audio>
+            <audio id="nextword" src="./assets/audio/nextword.wav" hidden></audio>
+            <audio id="countdown" src="./assets/audio/countdown.wav" hidden></audio>
+            <audio id="missionComplete" src="./assets/audio/missionCompleted.mp3" hidden></audio>
+            <audio id="wrong" src="./assets/audio/wrong.wav" hidden></audio>
+        </section>
+        <main>
+            <div id="title">Speedy typer</div>
+            <div class="content">
+                <div class="time">99</div>
+                <div id="givenWords"></div>
+                <input type="text" class="inputText" placeholder="Enter here">
+                <div class="btnDiv">
+                    <button id="start">Start</button>
+                    <button id="history">History</button>
+                </div>
+            </div>
+            <div><p><span id="completed">Completed:</span> <span id="completeAmount"></span></p></div>
+            <div class="scoreDiv"></div>
+            <div class="dialog">
+                <div id="subDialog">
+                    <h1>Congratulation!!</h1>
+                    <h2>Here is your score:</h2>
+                    <p><span class="scoreCategory">Name: </span><span id="roundScoreName"></span></p>
+                    <p><span class="scoreCategory">Date: </span><span id="roundScoreDate"></span></p>
+                    <p><span class="scoreCategory">Hits: </span><span id="roundScoreHits"></span></p>
+                    <p><span class="scoreCategory">Percentage: </span><span id="roundScorePercentage"></span></p>
+                    <button id="ok">OK</button>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
