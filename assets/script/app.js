@@ -68,7 +68,7 @@ function resetDOM() {
     num.classList.value = '';
   });
 
-    nums[0].classList.add('in');
+  nums[0].classList.add('in');
 }
 
 function runAnimation() {
@@ -99,12 +99,15 @@ function shuffleArray(array) {
 
 start.addEventListener('click', () => {
   resetDOM();
+  isGameStart = true;
   countdownDiv.style.display = 'grid'; 
+  clearInterval(intervalId);
   setTimeout(() => {
       initiation();
     }, 3500);
+  audioMissionComplete.pause();
+  audioCountdown.pause();
   shuffleArray(words);
-  clearInterval(intervalId);
   playSound(audioCountdown);
   scoreDiv.style.display = 'none';
 });
@@ -119,12 +122,11 @@ function initiation(){
   dvTime.innerText = totalSeconds;
   intervalId = setInterval(showTime, 1000);
   dvGivenWords.innerHTML = generateWordHTML(words[0]);
-  isGameStart = true;
 }
 
 dvdialog.addEventListener('click', () =>{
   dvdialog.style.display ='none';
-  audioMissionComplete.pause();
+  audioMissionComplete.stop();
 })
 
 function showTime(){
