@@ -115,7 +115,7 @@ function initiation(){
   inputText.focus();
   start.innerText = 'Restart';
   currentIndex = 0;
-  totalSeconds = 99;
+  timeUsed = 0;
   dvTime.innerText = totalSeconds;
   intervalId = setInterval(showTime, 1000);
   dvGivenWords.innerHTML = generateWordHTML(words[0]);
@@ -130,7 +130,7 @@ dvdialog.addEventListener('click', () =>{
 function showTime(){
   timeUsed ++;
   dvTime.innerText = totalSeconds - timeUsed;
-  if(totalSeconds <= 0 ){
+  if(timeUsed >= totalSeconds){
     clearInterval(intervalId);
     showScore();
     isGameStart = false;
