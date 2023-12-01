@@ -103,9 +103,10 @@ start.addEventListener('click', () => {
   setTimeout(() => {
       initiation();
     }, 3500);
-    shuffleArray(words);
-    clearInterval(intervalId);
+  shuffleArray(words);
+  clearInterval(intervalId);
   playSound(audioCountdown);
+  scoreDiv.style.display = 'none';
 });
 
 function initiation(){
