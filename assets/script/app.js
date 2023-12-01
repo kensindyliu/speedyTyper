@@ -37,6 +37,7 @@ let totalSeconds = 99;
 let timeUsed = 0;
 let isGameStart = false;
 let scores = [];
+let isbtnStartEnable = true;
 
 const words = ['dinosaur', 'love', 'pineapple', 'calendar', 'robot'];
 
@@ -98,6 +99,8 @@ function shuffleArray(array) {
 }
 
 start.addEventListener('click', () => {
+  if(!isbtnStartEnable) return;
+  isbtnStartEnable = false;
   resetDOM();
   isGameStart = true;
   countdownDiv.style.display = 'grid'; 
@@ -114,6 +117,7 @@ start.addEventListener('click', () => {
 
 function initiation(){
   countdownDiv.style.display = 'none'; 
+  isbtnStartEnable = true;
   inputText.value = '';
   inputText.focus();
   start.innerText = 'Restart';
