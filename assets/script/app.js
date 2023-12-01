@@ -126,7 +126,7 @@ function initiation(){
 
 dvdialog.addEventListener('click', () =>{
   dvdialog.style.display ='none';
-  audioMissionComplete.stop();
+  audioMissionComplete.pause();
 })
 
 function showTime(){
