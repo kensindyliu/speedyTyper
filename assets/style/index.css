@@ -87,7 +87,7 @@ main{
     width: 80%;
     height: 60px;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     
 }
 
@@ -121,7 +121,7 @@ main{
     margin-bottom: 50px;
 }
 
-#completed, #completeAmount{
+#Hits, #completeAmount{
     font-size: 16px;
     font-weight: 600;
     color: var(--app--time-color)
