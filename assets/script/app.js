@@ -1,4 +1,4 @@
-// import { Score } from "./score.js";
+
 'use strict';
 
 function onEvent(event, selector, callback){
@@ -30,6 +30,7 @@ const audioClick = select('#keydown');
 const audioNextWord = select('#nextword');
 const audioCountdown = select('#countdown');
 const audioMissionComplete = select('#missionComplete');
+const audioBackgroundMusic = select('#audioBackgroundMusic');
 const audioWrong = select('#wrong');
 let intervalId = 0;
 let currentIndex = 0;
@@ -108,6 +109,7 @@ start.addEventListener('click', () => {
   setTimeout(() => {
       initiation();
     }, 3500);
+  audioBackgroundMusic.pause();
   audioMissionComplete.pause();
   audioCountdown.pause();
   shuffleArray(words);
@@ -126,6 +128,7 @@ function initiation(){
   dvTime.innerText = totalSeconds;
   intervalId = setInterval(showTime, 1000);
   dvGivenWords.innerHTML = generateWordHTML(words[0]);
+  playSound(audioBackgroundMusic);
 }
 
 dvdialog.addEventListener('click', () =>{
@@ -197,6 +200,7 @@ function playSound(audio){
   audio.play();
 }
 
+//will use Score class here
 function showScore(){
   let percentage = (currentIndex/words.length) * 100 ;
   const newScore = new Score('Ken', currentIndex, percentage.toFixed(2), timeUsed)
@@ -212,6 +216,7 @@ function showScore(){
   btnOK.focus();
   playSound(audioMissionComplete);
   spcompleteAmount.innerText = '';
+  audioBackgroundMusic.pause();
 }
 
 onEvent('click', btnhistory, showHistory)
@@ -220,7 +225,7 @@ function showHistory(){
     scoreDiv.style.display ='none';
   } else {
     scoreDiv.style.display ='block';
-    let histories = '<h4>Histories:</h4>';
+    let histories = '<h4>Scores:</h4>';
     for(let i = 0; i < scores.length; i++){
       const score = scores[i];
       histories += createRecord(score);

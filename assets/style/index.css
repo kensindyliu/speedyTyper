@@ -81,6 +81,7 @@ main{
 .inputText::placeholder {
     text-align: center;
     padding: 2px 0px;
+    font-size: 40px;
 }
 
 .btnDiv {
@@ -99,6 +100,10 @@ main{
     border-radius: 20px;
     cursor: pointer;
     color: var(--app--time-color);
+}
+
+.btnDiv p{
+    line-height: 50px;
 }
 
 .btnDiv button:hover{
