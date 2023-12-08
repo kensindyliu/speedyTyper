@@ -42,6 +42,7 @@ let isbtnStartEnable = true;
 
 dvTime.innerHTML = totalSeconds;
 
+inputText.disabled = true;
 // const words = ['dinosaur', 'love', 'pineapple', 'calendar', 'robot'];
 
 const words = [
@@ -108,6 +109,7 @@ start.addEventListener('click', () => {
   isGameStart = true;
   countdownDiv.style.display = 'grid'; 
   clearInterval(intervalId);
+  inputText.disabled = true;
   setTimeout(() => {
       initiation();
     }, 3500);
@@ -123,6 +125,7 @@ function initiation(){
   countdownDiv.style.display = 'none'; 
   isbtnStartEnable = true;
   inputText.value = '';
+  inputText.disabled = false;
   inputText.focus();
   start.innerText = 'Restart';
   currentIndex = 0;
