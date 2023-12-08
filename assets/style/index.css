@@ -104,6 +104,9 @@ main{
 
 .btnDiv p{
     line-height: 50px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
 }
 
 .btnDiv button:hover{
@@ -218,5 +221,23 @@ main{
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+
+@media only screen and (max-width: 767px) {
+    #title {
+        font-size: 30px;
+    }
+
+    .time {
+        font-size: 40px;
+    }
+
+    .btnDiv button {
+        font-size: 16px;
+    }
+    
+    .btnDiv p{
+        font-size: 14px;
+    }
 }
 

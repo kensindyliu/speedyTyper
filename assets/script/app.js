@@ -222,7 +222,7 @@ function showScore(){
   const btnOK = select('#ok');
   btnOK.focus();
   playSound(audioMissionComplete);
-  spcompleteAmount.innerText = '';
+  spcompleteAmount.innerText = '0';
   audioBackgroundMusic.pause();
   saveScoresToLocal();
   inputText.disabled = true;
