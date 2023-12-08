@@ -145,6 +145,19 @@ main{
     background-color: #f0f0f0;
     padding: 10px;
     display: none;
+    overflow: auto;
+    /* text-align: center; */
+  }
+
+.scoreDiv h4{
+    margin-left: auto; 
+    margin-right: auto; 
+    display: block;
+    width: fit-content; 
+}
+
+  .norecord {
+    padding-left: 6px;
   }
 
   .scoreDiv p span {
@@ -196,4 +209,13 @@ main{
 
 #ok:hover {
     background-color: var(--app--hover-color);
+}
+
+#clock {
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/alarm-clock.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }

@@ -1,4 +1,3 @@
-
 'use strict';
 
 function onEvent(event, selector, callback){
@@ -21,6 +20,7 @@ const countdownDiv = document.querySelector('.countdownDiv');
 const inputText = document.querySelector('.inputText');
 const dvTime = document.querySelector('.time');
 const dvGivenWords = document.querySelector('#givenWords');
+
 const spcompleteAmount = select('#completeAmount');
 const scoreDiv = select('.scoreDiv');
 const btnhistory = select('#history');
@@ -34,11 +34,13 @@ const audioBackgroundMusic = select('#audioBackgroundMusic');
 const audioWrong = select('#wrong');
 let intervalId = 0;
 let currentIndex = 0;
-let totalSeconds = 99;
+let totalSeconds = 15;   // set the time can be used in total
 let timeUsed = 0;
 let isGameStart = false;
 let scores = [];
 let isbtnStartEnable = true;
+
+dvTime.innerHTML = totalSeconds;
 
 // const words = ['dinosaur', 'love', 'pineapple', 'calendar', 'robot'];
 
@@ -166,7 +168,7 @@ function textChange(){
       if(i < inputed.length){
         if(words[currentIndex][i] === inputed[i]){
           p.style.backgroundColor = '#1f9f87';
-          playSound(audioClick);
+          // playSound(audioClick);   
         } else {
           p.style.backgroundColor = '#f44336';
           playSound(audioWrong);
@@ -203,13 +205,15 @@ function playSound(audio){
 //will use Score class here
 function showScore(){
   let percentage = (currentIndex/words.length) * 100 ;
-  const newScore = new Score('Ken', currentIndex, percentage.toFixed(2), timeUsed)
+  // const newScore = new Score('Ken', currentIndex, percentage.toFixed(2), timeUsed)  // using class
+  const newScore = createScoreObject(currentIndex, percentage.toFixed(2), timeUsed);  // not using class
   scores.push(newScore);
+  sortScores();
   // show score
   dvdialog.style.display = 'grid';
   let scoreHTML = '<h1>Congratulation!!</h1>';
   scoreHTML += '<h2>Here is your score:</h2>';
-  scoreHTML += createRecord(newScore);
+  scoreHTML += createRecord(newScore, -1);
   scoreHTML += '<button id="ok">OK</button>';
   dvsubDialog.innerHTML = scoreHTML;
   const btnOK = select('#ok');
@@ -217,6 +221,7 @@ function showScore(){
   playSound(audioMissionComplete);
   spcompleteAmount.innerText = '';
   audioBackgroundMusic.pause();
+  saveScoresToLocal();
 }
 
 onEvent('click', btnhistory, showHistory)
@@ -225,14 +230,18 @@ function showHistory(){
     scoreDiv.style.display ='none';
   } else {
     scoreDiv.style.display ='block';
-    let histories = '<h4>Scores:</h4>';
-    for(let i = 0; i < scores.length; i++){
-      const score = scores[i];
-      histories += createRecord(score);
-      if(scores.length > 1 && i < scores.length - 1){
-        histories += '<div class="spliter"></div>';
+    let histories = '<h4>High scores</h4>';
+    if(scores.length > 0){
+      for(let i = 0; i < scores.length; i++){
+        const score = scores[i];
+        histories += createRecord(score, i);
+        if(scores.length > 1 && i < scores.length - 1){
+          histories += '<div class="spliter"></div>';
+        }
+        histories += '<div class="spliter2"></div>';
       }
-      histories += '<div class="spliter2"></div>';
+    } else {
+      histories += '<p class="norecord">No record yet</p>';
     }
     scoreDiv.innerHTML = histories;
   }
@@ -243,12 +252,76 @@ function hideHistory(){
   scoreDiv.style.display ='none';
 }
 
-function createRecord(score){
+function createRecord(score, index){
   let html = '';
-  html += `<p><span class="scoreCategory">Name: </span><span>${score.name}</span></p>`;
+  //html += `<p><span class="scoreCategory">Name: </span><span>${score.name}</span></p>`;
+  if(index != -1){
+    html += `<h2>#${index + 1}</h2>`;
+  }
   html += `<p><span class="scoreCategory">Date: </span><span">${score.date}</span></p>`;
   html += `<p><span class="scoreCategory">Hits: </span><span>${score.hits}</span></p>`;
-  html += `<p><span class="scoreCategory">Percentage: </span><span>${score.percentage}</span></p>`;
+  html += `<p><span class="scoreCategory">Percentage: </span><span>${score.percentage}%</span></p>`;
   html += `<p><span class="scoreCategory">Time Used: </span><span> ${score.timeUsed} seconds</span></p>`;
   return html;
 }
+
+readLocalScores();
+function readLocalScores(){
+  let localScores = localStorage.getItem('speedyTyper');
+  if(localScores === null) return;
+  const scoreT = localScores.split('$');
+  for(let i = 0; i < scoreT.length; i++){
+    const T1 = scoreT[i].split('|');
+    const objT = {
+      date: T1[0].replace(/"/g, ''),
+      hits: parseInt(T1[1]),
+      percentage: T1[2].replace(/"/g, ''),
+      timeUsed: parseInt(T1[3])
+    }
+    scores.push(objT);
+  }
+  sortScores();
+}
+
+function saveScoresToLocal(){
+  let localScores = '';
+  for(let i = 0; i < 9 && i < scores.length; i++){
+    const score = scores[i];
+    localScores += JSON.stringify(score.date) + '|' + JSON.stringify(score.hits) + '|' 
+    + JSON.stringify(score.percentage) + '|' + JSON.stringify(score.timeUsed);
+    if(i < 8 && i < scores.length - 1){
+      localScores += '$';
+    } 
+  }
+  localStorage.setItem('speedyTyper', localScores);
+}
+
+function createScoreObject(hits, percentage, timeUsed){
+  const now = new Date();
+  let hours = String(now.getHours()).padStart(2, '0');
+  let minutes = String(now.getMinutes()).padStart(2, '0');
+  let month = String(now.getMonth() + 1).padStart(2, '0'); 
+  let day = String(now.getDate()).padStart(2, '0');
+  let year = now.getFullYear();
+  let date = `${hours}:${minutes} ${month}-${day}-${year}`;
+
+  const objT = {
+    date: date,
+    hits: hits,
+    percentage: percentage,
+    timeUsed: timeUsed
+  }
+  return objT;
+}
+
+function sortScores(){
+  scores.sort((a, b) => {
+    if (a.hits !== b.hits) {
+      return  b.hits - a.hits; // Sort by hits in ascending order
+    } else {
+      return a.timeUsed - b.timeUsed; // If hits are equal, sort by timeUsed in descending order
+    }
+  });
+}
+
+// localStorage.removeItem('speedyTyper');
