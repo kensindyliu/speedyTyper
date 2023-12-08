@@ -225,6 +225,7 @@ function showScore(){
   spcompleteAmount.innerText = '';
   audioBackgroundMusic.pause();
   saveScoresToLocal();
+  inputText.disabled = true;
 }
 
 onEvent('click', btnhistory, showHistory)
