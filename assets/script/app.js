@@ -274,7 +274,7 @@ function readLocalScores(){
   let localScores = localStorage.getItem('speedyTyper');
   if(localScores === null) return;
   const scoreT = localScores.split('$');
-  for(let i = 0; i < scoreT.length; i++){
+  for(let i = 0; i < scoreT.length && i < 9; i++){
     const T1 = scoreT[i].split('|');
     const objT = {
       date: T1[0].replace(/"/g, ''),
@@ -326,6 +326,9 @@ function sortScores(){
       return a.timeUsed - b.timeUsed; // If hits are equal, sort by timeUsed in descending order
     }
   });
+  if(scores.length > 9){
+    scores = scores.slice(0, 9);
+  }
 }
 
 // localStorage.removeItem('speedyTyper');
