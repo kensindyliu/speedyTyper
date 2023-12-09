@@ -239,5 +239,15 @@ main{
     .btnDiv p{
         font-size: 14px;
     }
+
+    .btnDiv span{
+        font-size: 12px;
+    }
+    
+    #givenWords p{
+        font-size: 30px;
+        line-height: 40px;
+    }
 }
+
 
